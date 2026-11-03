@@ -1,0 +1,32 @@
+---
+import { Image } from 'astro:assets';
+import heroPhoto from '../assets/hero.jpg';
+import { site } from '../config/site';
+---
+
+<section id="top" class="bg-ink">
+  <div class="mx-auto flex max-w-[1200px] flex-wrap items-center gap-12 px-6 pb-20 pt-[72px]">
+    <div class="flex min-w-0 flex-[1_1_460px] flex-col gap-6">
+      <p class="text-[15px] font-semibold uppercase tracking-[0.16em] text-safety">{site.eyebrow}</p>
+      <h1 class="font-display text-[clamp(52px,8vw,84px)] font-extrabold uppercase leading-[0.96] tracking-[0.005em]">
+        {site.headline}
+      </h1>
+      <p class="max-w-[520px] text-xl leading-relaxed text-mute">{site.intro}</p>
+      <p class="text-base font-semibold uppercase tracking-widest text-paper">
+        {site.audience} · Serving {site.area}
+      </p>
+    </div>
+    <div class="relative min-w-0 flex-[1_1_480px]">
+      <div class="absolute -left-3.5 -top-3.5 bottom-3.5 right-3.5 rounded-[10px] border-2 border-brand-bright" aria-hidden="true"></div>
+      <Image
+        src={heroPhoto}
+        alt="Compact track loader with a brush mulching attachment clearing an overgrown lot"
+        widths={[640, 960, 1246]}
+        sizes="(min-width: 1024px) 560px, 100vw"
+        loading="eager"
+        fetchpriority="high"
+        class="relative block aspect-[1246/458] h-auto min-h-[280px] w-full rounded-lg object-cover"
+      />
+    </div>
+  </div>
+</section>

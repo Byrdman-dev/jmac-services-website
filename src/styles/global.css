@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+/* Design tokens. Brand blue is taken from the JMAC logo. */
+@theme {
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-sans: "Barlow", system-ui, sans-serif;
+
+  --color-brand: #0030c0;
+  --color-brand-bright: #2f55e8;
+  --color-safety: #f5b301;
+
+  --color-ink: #0e1013;
+  --color-ink-soft: #14171c;
+  --color-ink-deep: #08090b;
+  --color-line: #23272e;
+  --color-paper: #f3f1ec;
+  --color-card-line: #ddd9cf;
+  --color-mute: #b9bec6;
+  --color-mute-dim: #8d94a0;
+  --color-body: #3d434c;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

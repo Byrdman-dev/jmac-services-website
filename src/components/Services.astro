@@ -1,0 +1,22 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import ServiceIcon from './ServiceIcon.astro';
+import { site } from '../config/site';
+---
+
+<section id="services" class="bg-paper text-ink-soft">
+  <div class="mx-auto flex max-w-[1200px] flex-col gap-12 px-6 py-24">
+    <SectionHeading eyebrow="What we do" title="Heavy work, handled." tone="light" />
+    <ul class="grid grid-cols-[repeat(auto-fit,minmax(min(300px,100%),1fr))] gap-6">
+      {
+        site.services.map((service) => (
+          <li class="flex flex-col gap-3.5 rounded-md border border-card-line bg-white px-7 py-8">
+            <ServiceIcon name={service.icon} class="size-11 text-brand" />
+            <h3 class="font-display text-[30px] font-bold uppercase text-ink-soft">{service.title}</h3>
+            <p class="text-[17px] leading-relaxed text-body">{service.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

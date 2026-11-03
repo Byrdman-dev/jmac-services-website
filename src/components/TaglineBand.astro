@@ -1,0 +1,13 @@
+---
+import { site } from '../config/site';
+---
+
+<section class="bg-brand" aria-label="Our promise">
+  <ul class="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-x-8 gap-y-3.5 px-6 py-[26px]">
+    {
+      site.tagline.map((line) => (
+        <li class="font-display text-[28px] font-bold uppercase italic tracking-[0.06em] text-white">{line}</li>
+      ))
+    }
+  </ul>
+</section>

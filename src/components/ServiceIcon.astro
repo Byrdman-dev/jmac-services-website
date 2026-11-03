@@ -1,0 +1,31 @@
+---
+import type { IconName } from '../config/site';
+
+interface Props {
+  name: IconName;
+  class?: string;
+}
+
+const icons: Record<IconName, string> = {
+  clearing: '<path d="M12 3l5 7h-3l4 6H6l4-6H7z"/><path d="M12 16v5"/>',
+  brush: '<path d="M4 21c0-6 2-10 4-13"/><path d="M10 21c0-7 1-12 3-16"/><path d="M16 21c0-5 1-8 4-11"/>',
+  gravel: '<path d="M6 21L9 3"/><path d="M18 21L15 3"/><path d="M12 5v3"/><path d="M12 11v3"/><path d="M12 17v3"/>',
+  dirt: '<path d="M3 19h18"/><path d="M5 19l4-8 3 4 4-9 3 13"/>',
+  debris: '<path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M6 7l1 13h10l1-13"/><path d="M10 11v6"/><path d="M14 11v6"/>',
+  skidsteer: '<path d="M3 17h15"/><path d="M6 13V8h6l2 5h4v4"/><circle cx="7" cy="17" r="2"/><circle cx="15" cy="17" r="2"/>',
+};
+
+const { name, class: className } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.6"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  class={className}
+  set:html={icons[name]}
+/>

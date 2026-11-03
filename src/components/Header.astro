@@ -1,0 +1,28 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/jmac-logo.png';
+import { site } from '../config/site';
+---
+
+<header class="border-b border-line bg-ink">
+  <div class="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-x-8 gap-y-4 px-6 py-[18px]">
+    <a href="#top" class="block leading-none">
+      <Image src={logo} alt={site.name} height={108} class="block h-[54px] w-auto" loading="eager" />
+    </a>
+    <nav aria-label="Main" class="flex flex-wrap items-center gap-x-8 gap-y-3">
+      {
+        site.nav.map((item) => (
+          <a href={item.href} class="text-base font-medium text-[#d5d8dd] hover:opacity-90">
+            {item.label}
+          </a>
+        ))
+      }
+      <a
+        href={site.phone.href}
+        class="inline-flex min-h-11 items-center rounded bg-brand px-[22px] text-base font-semibold text-white hover:opacity-90"
+      >
+        {site.phone.display}
+      </a>
+    </nav>
+  </div>
+</header>

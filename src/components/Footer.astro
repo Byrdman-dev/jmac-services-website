@@ -1,0 +1,14 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/jmac-logo.png';
+import { site } from '../config/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-[#1b1f25] bg-ink-deep">
+  <div class="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-x-10 gap-y-6 px-6 py-11">
+    <Image src={logo} alt={site.name} height={96} class="block h-12 w-auto" />
+    <p class="text-sm text-mute-dim">© {year} {site.name} · Serving {site.area}</p>
+  </div>
+</footer>
