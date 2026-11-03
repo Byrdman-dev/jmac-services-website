@@ -6,8 +6,9 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   // Fully static site: `astro build` writes plain HTML/CSS/JS to ./dist
   output: 'static',
-  // Set this once the production domain is known (needed for canonical URLs and a sitemap):
-  // site: 'https://www.example.com',
+  // GitHub Pages project site. Update `site` (and drop `base`) if a custom domain is set up later.
+  site: 'https://byrdman-dev.github.io',
+  base: '/jmac-services-website',
   vite: {
     plugins: [tailwindcss()],
   },
