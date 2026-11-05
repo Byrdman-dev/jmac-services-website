@@ -67,11 +67,11 @@ export const site = {
   email: 'jdmcfarlain96@gmail.com',
   facebook: 'https://www.facebook.com/profile.php?id=61588497090496',
   nav: [
-    { label: 'Watch us work', href: '#videos' },
+    { label: 'See it in action', href: '#videos' },
     { label: 'Services', href: '#services' },
-    { label: 'Our work', href: '#work' },
+    { label: 'Completed jobs', href: '#work' },
     { label: 'Custom builds', href: '#custom-builds' },
-    { label: 'How it works', href: '#process' },
+    { label: 'Getting started', href: '#process' },
   ],
   services: [
     {
