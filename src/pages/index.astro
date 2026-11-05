@@ -1,19 +1,22 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
-import Videos from '../components/Videos.astro';
 import TaglineBand from '../components/TaglineBand.astro';
-import Services from '../components/Services.astro';
-import Process from '../components/Process.astro';
-import Work from '../components/Work.astro';
-import CustomBuilds from '../components/CustomBuilds.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import Videos from '../components/Videos.astro';
 import CallCta from '../components/CallCta.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../config/site';
+import { routes } from '../lib/routes';
 
 const title = 'JMAC Services | Land Clearing, Dirt Work & Gravel Driveways in Southwest Louisiana';
 const description = `Residential and commercial land clearing, brush hogging, dirt work, gravel driveways, debris removal and skid steer work in ${site.area}. Call ${site.phone.display}.`;
+
+const featuredServices = site.services.slice(0, 4);
+const featuredWork = site.workPhotos.slice(0, 3);
 ---
 
 <BaseLayout title={title} description={description}>
@@ -21,11 +24,54 @@ const description = `Residential and commercial land clearing, brush hogging, di
   <main>
     <Hero />
     <TaglineBand />
+
+    <section class="bg-paper text-ink-soft">
+      <div class="mx-auto flex max-w-[1200px] flex-col gap-10 px-6 py-24">
+        <SectionHeading eyebrow="What we do" title="Heavy work, handled." tone="light" />
+        <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {featuredServices.map((service) => <ServiceCard {...service} />)}
+        </ul>
+        <p>
+          <a href={routes.services} class="text-[15px] font-semibold uppercase tracking-[0.16em] text-brand hover:opacity-90">
+            See all services →
+          </a>
+        </p>
+      </div>
+    </section>
+
+    <section class="bg-ink-soft">
+      <div class="mx-auto flex max-w-[1200px] flex-col gap-10 px-6 py-24">
+        <SectionHeading eyebrow="Completed jobs" title="See the difference." tone="dark" />
+        <ul class="grid grid-cols-2 gap-5 sm:grid-cols-3">
+          {
+            featuredWork.map((item) => (
+              <li>
+                <a href={routes.ourWork} class="group block overflow-hidden rounded-md border border-line">
+                  <Image
+                    src={item.photo}
+                    alt={item.alt}
+                    widths={[320, 480]}
+                    sizes="(min-width: 640px) 33vw, 50vw"
+                    loading="lazy"
+                    class="aspect-[4/3] w-full object-cover transition-opacity motion-reduce:transition-none group-hover:opacity-85"
+                  />
+                </a>
+                <p class="mt-2 text-center text-[13px] font-semibold uppercase tracking-[0.08em] text-mute-dim">
+                  {item.caption}
+                </p>
+              </li>
+            ))
+          }
+        </ul>
+        <p>
+          <a href={routes.ourWork} class="text-[15px] font-semibold uppercase tracking-[0.16em] text-safety hover:opacity-90">
+            View full gallery →
+          </a>
+        </p>
+      </div>
+    </section>
+
     <Videos />
-    <Services />
-    <Work />
-    <CustomBuilds />
-    <Process />
     <CallCta />
   </main>
   <Footer />

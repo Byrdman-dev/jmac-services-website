@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import CallCta from '../components/CallCta.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../config/site';
+import { routes } from '../lib/routes';
+
+const title = `Services | ${site.shortName}`;
+const description = `Land clearing, brush hogging, gravel driveways, dirt work, debris removal, skid steer work, gravel restoration and culvert installation across ${site.area}.`;
+---
+
+<BaseLayout title={title} description={description}>
+  <Header currentPage="services" />
+  <main>
+    <section class="bg-paper text-ink-soft">
+      <div class="mx-auto flex max-w-[1200px] flex-col gap-12 px-6 py-24">
+        <SectionHeading eyebrow="What we do" title="Heavy work, handled." tone="light" />
+        <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {site.services.map((service) => <ServiceCard {...service} />)}
+        </ul>
+        <p class="max-w-[640px] text-[17px] leading-relaxed text-body">
+          Also need patio furniture or general carpentry? See our
+          <a href={routes.customBuilds} class="font-semibold text-brand hover:opacity-90">custom builds →</a>
+        </p>
+      </div>
+    </section>
+    <CallCta />
+  </main>
+  <Footer />
+</BaseLayout>

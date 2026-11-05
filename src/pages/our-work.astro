@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Work from '../components/Work.astro';
+import CallCta from '../components/CallCta.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../config/site';
+
+const title = `Our Work | ${site.shortName}`;
+const description = `Recent land clearing, dirt work, gravel driveway and culvert installation jobs completed across ${site.area}.`;
+---
+
+<BaseLayout title={title} description={description}>
+  <Header currentPage="our-work" />
+  <main>
+    <Work />
+    <CallCta />
+  </main>
+  <Footer />
+</BaseLayout>

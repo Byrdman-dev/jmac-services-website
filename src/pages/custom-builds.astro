@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import CustomBuilds from '../components/CustomBuilds.astro';
+import CallCta from '../components/CallCta.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../config/site';
+
+const title = `Custom Builds | ${site.shortName}`;
+const description = `Custom patio furniture and general carpentry builds from ${site.shortName}, serving ${site.area}.`;
+---
+
+<BaseLayout title={title} description={description}>
+  <Header currentPage="custom-builds" />
+  <main>
+    <CustomBuilds />
+    <CallCta />
+  </main>
+  <Footer />
+</BaseLayout>

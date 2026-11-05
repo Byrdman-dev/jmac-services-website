@@ -66,13 +66,6 @@ export const site = {
   phone: { display: '(337) 513-7776', href: 'tel:+13375137776', e164: '+13375137776' },
   email: 'jdmcfarlain96@gmail.com',
   facebook: 'https://www.facebook.com/profile.php?id=61588497090496',
-  nav: [
-    { label: 'See it in action', href: '#videos' },
-    { label: 'Services', href: '#services' },
-    { label: 'Completed jobs', href: '#work' },
-    { label: 'Custom builds', href: '#custom-builds' },
-    { label: 'Getting started', href: '#process' },
-  ],
   services: [
     {
       title: 'Land clearing',

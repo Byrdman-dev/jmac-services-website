@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Process from '../components/Process.astro';
+import CallCta from '../components/CallCta.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../config/site';
+
+const title = `Contact | ${site.shortName}`;
+const description = `Call ${site.phone.display} or email ${site.email} for a quote. ${site.shortName} serves ${site.area}.`;
+---
+
+<BaseLayout title={title} description={description}>
+  <Header currentPage="contact" />
+  <main>
+    <section class="bg-ink">
+      <div class="mx-auto flex max-w-[1200px] flex-col gap-4 px-6 pb-16 pt-[72px]">
+        <p class="text-[15px] font-semibold uppercase tracking-[0.16em] text-safety">Get in touch</p>
+        <h1 class="font-display text-[clamp(44px,7vw,72px)] font-extrabold uppercase leading-[0.96]">Contact us.</h1>
+        <p class="max-w-[520px] text-xl leading-relaxed text-mute">
+          Tell us about the job and where it is — we'll take it from there.
+        </p>
+      </div>
+    </section>
+    <Process />
+    <CallCta />
+  </main>
+  <Footer />
+</BaseLayout>

@@ -2,17 +2,39 @@
 import { Image } from 'astro:assets';
 import logo from '../assets/jmac-logo.png';
 import { site } from '../config/site';
+import { routes } from '../lib/routes';
+
+interface Props {
+  currentPage?: string;
+}
+
+const { currentPage = '' } = Astro.props;
+
+const navItems = [
+  { key: 'services', label: 'Services', href: routes.services },
+  { key: 'our-work', label: 'Our Work', href: routes.ourWork },
+  { key: 'custom-builds', label: 'Custom Builds', href: routes.customBuilds },
+  { key: 'about', label: 'About', href: routes.about },
+  { key: 'contact', label: 'Contact', href: routes.contact },
+];
 ---
 
 <header class="border-b border-line bg-ink">
   <div class="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-x-8 gap-y-4 px-6 py-[18px]">
-    <a href="#top" class="block leading-none">
+    <a href={routes.home} class="block leading-none">
       <Image src={logo} alt={site.name} height={108} class="block h-[54px] w-auto" loading="eager" />
     </a>
     <nav aria-label="Main" class="flex flex-wrap items-center gap-x-8 gap-y-3">
       {
-        site.nav.map((item) => (
-          <a href={item.href} class="text-base font-medium text-[#d5d8dd] hover:opacity-90">
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            class={
+              item.key === currentPage
+                ? 'text-base font-semibold text-white'
+                : 'text-base font-medium text-[#d5d8dd] hover:opacity-90'
+            }
+          >
             {item.label}
           </a>
         ))
