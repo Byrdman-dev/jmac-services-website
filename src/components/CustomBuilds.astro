@@ -1,0 +1,60 @@
+---
+import { Image, getImage } from 'astro:assets';
+import SectionHeading from './SectionHeading.astro';
+import ServiceCard from './ServiceCard.astro';
+import Lightbox from './Lightbox.astro';
+import { site } from '../config/site';
+
+const lightboxId = 'custom-builds-lightbox';
+
+const lightboxPhotos = await Promise.all(
+  site.craftPhotos.map(async (item) => {
+    const full = await getImage({ src: item.photo, width: 1400, format: 'jpeg' });
+    return full.src;
+  })
+);
+---
+
+<section id="custom-builds" class="bg-paper text-ink-soft">
+  <div class="mx-auto flex max-w-[1200px] flex-col gap-10 px-6 py-24">
+    <SectionHeading eyebrow="Custom builds" title="Patio furniture & carpentry." tone="light" />
+    <p class="max-w-[640px] text-[17px] leading-relaxed text-body">
+      Outside of dirt work, JMAC also builds custom patio furniture and takes on general carpentry
+      projects.
+    </p>
+    <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      {site.craftServices.map((service) => <ServiceCard {...service} />)}
+    </ul>
+    <p class="text-[15px] font-semibold uppercase tracking-[0.16em] text-brand">Recent builds</p>
+    <ul class="grid grid-cols-2 gap-5 sm:grid-cols-3">
+      {
+        site.craftPhotos.map((item, i) => (
+          <li>
+            <button
+              type="button"
+              class="group block w-full cursor-pointer overflow-hidden rounded-md border border-card-line focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+              data-lightbox-for={lightboxId}
+              data-full-src={lightboxPhotos[i]}
+              data-alt={item.alt}
+              aria-label={`Enlarge photo: ${item.alt}`}
+            >
+              <Image
+                src={item.photo}
+                alt={item.alt}
+                widths={[320, 480]}
+                sizes="(min-width: 640px) 33vw, 50vw"
+                loading="lazy"
+                class="aspect-[4/3] w-full object-cover transition-opacity motion-reduce:transition-none group-hover:opacity-85"
+              />
+            </button>
+            <p class="mt-2 text-center text-[13px] font-semibold uppercase tracking-[0.08em] text-[#4a505a]">
+              {item.caption}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <Lightbox id={lightboxId} />
+  </div>
+</section>

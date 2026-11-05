@@ -2,10 +2,12 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
+import Videos from '../components/Videos.astro';
 import TaglineBand from '../components/TaglineBand.astro';
 import Services from '../components/Services.astro';
 import Process from '../components/Process.astro';
 import Work from '../components/Work.astro';
+import CustomBuilds from '../components/CustomBuilds.astro';
 import CallCta from '../components/CallCta.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../config/site';
@@ -19,9 +21,11 @@ const description = `Residential and commercial land clearing, brush hogging, di
   <main>
     <Hero />
     <TaglineBand />
+    <Videos />
     <Services />
-    <Process />
     <Work />
+    <CustomBuilds />
+    <Process />
     <CallCta />
   </main>
   <Footer />

@@ -1,0 +1,45 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { site } from '../config/site';
+
+const videoSrc = (reelUrl: string) => {
+  const params = new URLSearchParams({
+    href: reelUrl,
+    show_text: 'false',
+    width: '380',
+    height: '676',
+  });
+  return `https://www.facebook.com/plugins/video.php?${params.toString()}`;
+};
+---
+
+<section id="videos" class="bg-ink-soft">
+  <div class="mx-auto flex max-w-[1200px] flex-col gap-10 px-6 py-24">
+    <SectionHeading eyebrow="Watch us work" title="See it in action." tone="dark" />
+    <ul
+      aria-label="Job videos"
+      class="-mx-6 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-2 lg:mx-0 lg:grid lg:grid-cols-3 lg:gap-8 lg:overflow-visible lg:px-0 lg:pb-0"
+    >
+      {
+        site.videos.map((item) => (
+          <li class="flex w-[82vw] shrink-0 snap-center flex-col gap-3 sm:w-[360px] lg:w-auto">
+            <div class="relative aspect-[3/4] w-full overflow-hidden rounded-md border border-line bg-ink">
+              <iframe
+                src={videoSrc(item.facebookReel)}
+                title={`${item.label} video`}
+                class="absolute left-0 top-1/2 aspect-[9/16] w-full -translate-y-1/2"
+                style="border:none;overflow:hidden"
+                loading="lazy"
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                allowfullscreen
+              />
+            </div>
+            <p class="text-center text-[15px] font-semibold uppercase tracking-[0.08em] text-mute">
+              {item.label}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

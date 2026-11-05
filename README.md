@@ -15,18 +15,23 @@ Stack: Astro (static output) + Tailwind CSS v4 + TypeScript (strict).
 
 ## Structure
 
-- `src/config/site.ts`: phone, email, Facebook link, tagline, services, steps. Edit copy here.
+- `src/config/site.ts`: phone, email, Facebook link, tagline, services, steps, photo/video data. Edit copy here.
 - `src/components/`: one component per page section.
 - `src/layouts/BaseLayout.astro`: head, fonts (self-hosted via Fontsource), SEO meta, LocalBusiness JSON-LD.
 - `src/styles/global.css`: Tailwind import and design tokens (brand blue `#0030c0` is from the logo).
-- `src/assets/`: logo and hero photo (processed by Astro into optimized WebP).
-- `public/`: files served as-is (favicon).
+- `src/assets/`: every image imported by a component (logo, hero photo, service icons, job photos), processed by Astro into optimized WebP at build time.
+  - `src/assets/icons/`: the "What we do" service icons.
+  - `src/assets/work/`: job photos used in the "Our work" and "Custom builds" galleries.
+- `public/`: files served as-is, unprocessed (favicon).
+- `assets-source/`: raw, unprocessed source material kept for reference — not imported by any component. Web-ready copies used on the site live under `src/assets/` instead.
+  - `assets-source/photos/`: original client-provided job photos (including unconverted `.HEIC` files).
+  - `assets-source/icons/`: original service icon PNGs as delivered.
+  - `assets-source/logo/`: master logo file.
+  - `assets-source/video-frames/`: extracted video poster frames (not currently used; videos are embedded live from Facebook).
 
 ## Before launch
 
-- Replace `src/assets/hero.jpg` with JMAC's own job photo (current one is a stand-in crop).
-- Replace the three placeholder tiles in `src/components/Work.astro` with real job photos.
 - Set `site` in `astro.config.mjs` once the domain is known (canonical URLs, sitemap).
-- Swap the placeholder favicon in `public/favicon.svg`.
+- Swap the placeholder favicon in `public/favicon.png`.
 - Confirm services, process-step copy, and email address with the owner.
 - Add Meta Pixel / conversion tracking before running Facebook ads.

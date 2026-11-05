@@ -1,0 +1,65 @@
+---
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+
+<dialog
+  id={id}
+  class="m-auto max-w-[min(92vw,900px)] rounded-md border-0 bg-ink-soft p-0 text-paper backdrop:bg-black/80"
+>
+  <div class="relative">
+    <button
+      type="button"
+      data-lightbox-close
+      aria-label="Close"
+      class="absolute right-2 top-2 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-ink/80 text-paper hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-safety"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        class="h-6 w-6"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
+        <path d="M6 6l12 12M18 6L6 18" />
+      </svg>
+    </button>
+    <img data-lightbox-image src="" alt="" class="max-h-[80vh] w-full rounded-md object-contain" />
+  </div>
+</dialog>
+
+<script define:vars={{ dialogId: id }}>
+  const dialog = document.getElementById(dialogId);
+  const img = dialog ? dialog.querySelector('[data-lightbox-image]') : null;
+  const closeBtn = dialog ? dialog.querySelector('[data-lightbox-close]') : null;
+  const triggers = document.querySelectorAll(`[data-lightbox-for="${dialogId}"]`);
+  let lastTrigger = null;
+
+  triggers.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (!dialog || !img) return;
+      img.src = btn.dataset.fullSrc || '';
+      img.alt = btn.dataset.alt || '';
+      lastTrigger = btn;
+      dialog.showModal();
+    });
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => dialog && dialog.close());
+  }
+
+  if (dialog) {
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    dialog.addEventListener('close', () => {
+      if (lastTrigger) lastTrigger.focus();
+    });
+  }
+</script>

@@ -1,59 +1,55 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import SectionHeading from './SectionHeading.astro';
+import Lightbox from './Lightbox.astro';
 import { site } from '../config/site';
+
+const lightboxId = 'work-lightbox';
+
+const lightboxPhotos = await Promise.all(
+  site.workPhotos.map(async (item) => {
+    const full = await getImage({ src: item.photo, width: 1400, format: 'jpeg' });
+    return full.src;
+  })
+);
 ---
 
 <section id="work" class="bg-paper text-ink-soft">
-  <div class="mx-auto flex max-w-[1200px] flex-col gap-12 px-6 py-24">
+  <div class="mx-auto flex max-w-[1200px] flex-col gap-10 px-6 py-24">
     <SectionHeading eyebrow="Our work" title="See the difference." tone="light" />
-    <ul class="flex flex-wrap justify-center gap-12">
+    <p class="max-w-[640px] text-[17px] leading-relaxed text-body">
+      A look at recent jobs — land clearing, dirt work, gravel driveways, and culvert installations
+      across {site.area}.
+    </p>
+    <ul class="grid grid-cols-2 gap-5 sm:grid-cols-3">
       {
-        site.work.map((item) => (
+        site.workPhotos.map((item, i) => (
           <li>
-            {item.facebookReel ? (
-              <a
-                href={item.facebookReel}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="group relative block"
-                aria-label={`Watch the ${item.label} reel on Facebook`}
-              >
-                <Image
-                  src={item.photo}
-                  alt={item.label}
-                  width={220}
-                  height={390}
-                  class="h-[390px] w-[220px] rounded-md border border-[#d3cec2] object-cover transition-opacity group-hover:opacity-80"
-                />
-                <span class="pointer-events-none absolute inset-0 flex items-center justify-center rounded-md bg-black/10 transition-colors group-hover:bg-black/25">
-                  <span class="flex h-14 w-14 items-center justify-center rounded-full bg-safety shadow-md transition-transform group-hover:scale-110">
-                    <svg viewBox="0 0 24 24" class="ml-1 h-6 w-6 fill-ink">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </span>
-                </span>
-                <p class="mt-2 text-center text-[15px] font-semibold uppercase tracking-[0.08em] text-[#4a505a]">
-                  {item.label}
-                </p>
-              </a>
-            ) : (
-              <>
-                <Image
-                  src={item.photo}
-                  alt={item.label}
-                  width={220}
-                  height={390}
-                  class="h-[390px] w-[220px] rounded-md border border-[#d3cec2] object-cover"
-                />
-                <p class="mt-2 text-center text-[15px] font-semibold uppercase tracking-[0.08em] text-[#4a505a]">
-                  {item.label}
-                </p>
-              </>
-            )}
+            <button
+              type="button"
+              class="group block w-full cursor-pointer overflow-hidden rounded-md border border-card-line focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+              data-lightbox-for={lightboxId}
+              data-full-src={lightboxPhotos[i]}
+              data-alt={item.alt}
+              aria-label={`Enlarge photo: ${item.alt}`}
+            >
+              <Image
+                src={item.photo}
+                alt={item.alt}
+                widths={[320, 480]}
+                sizes="(min-width: 640px) 33vw, 50vw"
+                loading="lazy"
+                class="aspect-[4/3] w-full object-cover transition-opacity motion-reduce:transition-none group-hover:opacity-85"
+              />
+            </button>
+            <p class="mt-2 text-center text-[13px] font-semibold uppercase tracking-[0.08em] text-[#4a505a]">
+              {item.caption}
+            </p>
           </li>
         ))
       }
     </ul>
+
+    <Lightbox id={lightboxId} />
   </div>
 </section>
