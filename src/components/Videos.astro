@@ -43,3 +43,60 @@ const videoSrc = (reelUrl: string) => {
     </ul>
   </div>
 </section>
+
+<script>
+  // Facebook's embedded video player grabs focus when you hit play, which
+  // can trigger a native "scroll the focused element into view" that we have
+  // no hook into (it happens inside a cross-origin iframe). Since we can't
+  // intercept the cause, we continuously track the scroll position from
+  // whenever a video iframe is NOT focused, and snap back to it if the page
+  // moves while one is focused and the user isn't the one scrolling.
+  const section = document.getElementById('videos');
+
+  if (section) {
+    let lastGoodY = window.scrollY;
+    let lastGestureAt = 0;
+
+    const markGesture = () => {
+      lastGestureAt = performance.now();
+    };
+    window.addEventListener('wheel', markGesture, { passive: true });
+    window.addEventListener('touchmove', markGesture, { passive: true });
+    window.addEventListener('keydown', (e) => {
+      if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(e.key)) {
+        markGesture();
+      }
+    });
+
+    const isVideoIframeFocused = () => {
+      const active = document.activeElement;
+      return active instanceof HTMLIFrameElement && section.contains(active);
+    };
+
+    const tick = () => {
+      if (!isVideoIframeFocused()) {
+        lastGoodY = window.scrollY;
+      }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!isVideoIframeFocused()) return;
+
+        const recentGesture = performance.now() - lastGestureAt < 200;
+        if (recentGesture) {
+          lastGoodY = window.scrollY;
+          return;
+        }
+
+        if (window.scrollY !== lastGoodY) {
+          window.scrollTo({ top: lastGoodY, behavior: 'auto' });
+        }
+      },
+      { passive: true }
+    );
+  }
+</script>
