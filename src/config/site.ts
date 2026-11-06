@@ -227,12 +227,12 @@ export const site = {
     {
       photo: carpentryBenchBuild,
       alt: 'Wood bench frame being assembled in a driveway',
-      caption: 'Carpentry build',
+      caption: 'Bar top table',
     },
     {
       photo: carpentryGardenBoxes,
       alt: 'Raised garden boxes built from lumber',
-      caption: 'Carpentry build',
+      caption: 'Raised planter',
     },
   ] satisfies GalleryPhoto[],
 } as const;
