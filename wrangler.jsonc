@@ -1,5 +1,8 @@
 {
   "name": "jmac-services",
   "compatibility_date": "2026-10-23",
-  "assets": { "directory": "./dist" }
+  "assets": { "directory": "./dist" },
+  "routes": [
+    { "pattern": "jmacservicesllc.com", "custom_domain": true }
+  ]
 }
